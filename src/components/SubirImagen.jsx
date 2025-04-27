@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { Upload, message } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
 import '../styles/SubirImagen.css';
+import { useImagen } from '../context/ImagenContext.jsx';
 
-const SubirImagen = ({ onImageUpload }) => {
+const SubirImagen = () => {
   const [fileList, setFileList] = useState([]);
+  const { handleImageUpload } = useImagen();
 
   const handleChange = ({ fileList }) => {
     const newFile = fileList[0];
@@ -16,7 +18,7 @@ const SubirImagen = ({ onImageUpload }) => {
 
     setFileList(fileList);
 
-    onImageUpload(newFile.originFileObj);
+    handleImageUpload(newFile.originFileObj);
   };
 
   const beforeUpload = (file) => {

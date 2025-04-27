@@ -3,5 +3,10 @@ export const getMesNombre = (mes) => {
     "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
     "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
   ];
-  return meses[mes - 1];
+
+  const mesLower = mes.trim().toLowerCase();
+
+  const mesIndex = meses.findIndex(m => m.toLowerCase() === mesLower);
+
+  return mesIndex !== -1 ? meses[mesIndex] : null;
 };

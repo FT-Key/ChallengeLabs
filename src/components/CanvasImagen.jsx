@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, use } from 'react';
 import { renderizarPseudoCodigo, generarLines, aplicarEstiloTexto } from '../helpers/manejadorImagenes.js';
 import { cargarImagenes } from '../utils/manejadorImagenes.js';
 import { getMesNombre } from '../utils/manejadorFechas.js';
@@ -6,10 +6,12 @@ import { colorMap, estilosTexto } from '../constants/constantes.js';
 import '../styles/CanvasImagen.css';
 import { DownloadOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
+import { useImagen } from '../context/ImagenContext.jsx';
 
-const CanvasImage = ({ imagen, dia, mes, nombre }) => {
+const CanvasImage = ({ dia, mes, nombre }) => {
   const canvasRef = useRef(null);
   const [canvasImage, setCanvasImage] = useState(null);
+  const { imagen } = useImagen();
 
   useEffect(() => {
     const canvas = canvasRef.current;
