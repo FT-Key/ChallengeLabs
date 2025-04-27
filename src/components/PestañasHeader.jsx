@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Tabs } from 'antd';
-import cumpleIcon from '../assets/star_icon.svg';
-import regaloIcon from '../assets/gift_icon.svg';
+import { StarFilled, GiftFilled } from '@ant-design/icons';
+import SubirImagen from './SubirImagen';
 import '../styles/pestañasHeader.css';
 
 const PestañasHeader = () => {
@@ -15,16 +15,27 @@ const PestañasHeader = () => {
     {
       label: (
         <span>
-          <img src={cumpleIcon} alt="Placa de Cumple" style={{ marginRight: 8, width: 20 }} />
+          <StarFilled
+            className={`icon-starfilled ${activeKey === 'cumple' ? 'icon-active' : 'icon-inactive'}`}
+          />
           Placa de Cumple
         </span>
       ),
       key: 'cumple',
+      children: (
+        <div className="pestaña-contenido">
+          <SubirImagen onImageUpload={(file) => console.log(file)} />
+        </div>
+      ),
     },
     {
       label: (
         <span>
-          <img src={regaloIcon} alt="Placa de Bienvenida" style={{ marginRight: 8, width: 20 }} />
+          <GiftFilled
+            className={`icono-giftfilled 
+              ${activeKey === 'bienvenida' ? 'icono-active' : 'icono-inactive'} 
+              ${activeKey !== 'bienvenida' && 'icono-disabled'}`}
+          />
           Placa de Bienvenida
         </span>
       ),
@@ -40,7 +51,6 @@ const PestañasHeader = () => {
         onChange={handleTabChange}
         items={items}
         tabPosition="top"
-        style={{ display: 'inline-block', marginRight: 10 }}
       />
     </div>
   );
