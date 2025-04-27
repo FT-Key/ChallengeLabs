@@ -2,21 +2,23 @@ import React, { useState } from 'react';
 import { Upload, message } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
 import '../styles/SubirImagen.css';
+import { useImagen } from '../context/ImagenContext.jsx';
 
-const SubirImagen = ({ onImageUpload }) => {
+const SubirImagen = () => {
   const [fileList, setFileList] = useState([]);
+  const { handleImageUpload, handleImageRemove } = useImagen();
 
   const handleChange = ({ fileList }) => {
     const newFile = fileList[0];
 
     if (!newFile) {
       setFileList([]);
+      handleImageRemove();
       return;
     }
 
     setFileList(fileList);
-
-    onImageUpload(newFile.originFileObj);
+    handleImageUpload(newFile.originFileObj);
   };
 
   const beforeUpload = (file) => {
@@ -58,17 +60,13 @@ const SubirImagen = ({ onImageUpload }) => {
           showPreviewIcon: false,
         }}
       >
-        <div
-          className="upload-drop-zone"
-        >
-          <InboxOutlined className='icono-inboxoutlined' />
+        <div className="upload-drop-zone">
+          <InboxOutlined className="icono-inboxoutlined" />
           <h3>Arrastra la Foto de la persona aquí</h3>
-          <p>
-            Se utilizará una única imagen al a vez
-          </p>
+          <p>Se utilizará una única imagen al a vez</p>
         </div>
       </Upload>
-    </div >
+    </div>
   );
 };
 

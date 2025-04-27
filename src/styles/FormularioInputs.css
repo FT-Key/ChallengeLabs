@@ -1,5 +1,6 @@
 .formulario-inputs {
   width: 100%;
+  padding-top: 1rem;
 }
 
 .inputs-container {
@@ -9,11 +10,15 @@
 }
 
 .input-field {
-  width: clamp(120px, 30%, 200px);
+  width: clamp(160px, 30%, 180px);
+}
+
+.input-field.month-field {
+  width: clamp(120px, 30%, 110px);
 }
 
 .input-number-field {
-  width: clamp(80px, 10%, 120px);
+  width: clamp(50px, 5%, 60px);
 }
 
 .boton-previsualizar {
@@ -37,7 +42,7 @@
   border-color: #1473FF;
 }
 
-.boton-previsualizar .anticon-eye-filled {
+.boton-previsualizar .anticon-eye {
   color: white;
-  margin-right: 8px;
+  margin-right: .25rem;
 }

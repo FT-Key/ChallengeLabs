@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Input, InputNumber, Button } from 'antd';
+import { Input, Button } from 'antd';
 import { EyeFilled } from '@ant-design/icons';
 import ModalPrevisualizar from './ModalPrevisualizar.jsx';
 import '../styles/FormularioInputs.css';
+import { mesesValidos } from '../constants/constantes.js';
 
-const FormularioInputs = ({ imagen }) => {
+const FormularioInputs = () => {
   const [nombre, setNombre] = useState('');
   const [dia, setDia] = useState(null);
-  const [mes, setMes] = useState(null);
+  const [mes, setMes] = useState('');
   const [isFormValid, setIsFormValid] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -18,7 +19,7 @@ const FormularioInputs = ({ imagen }) => {
   const validateForm = () => {
     const isNombreValid = nombre.length <= 80 && nombre.trim() !== '';
     const isDiaValid = dia !== null && dia > 0 && dia <= 31;
-    const isMesValid = mes !== null && mes > 0 && mes <= 12;
+    const isMesValid = mesesValidos.some((m) => m.toLowerCase() === mes.trim().toLowerCase());
     setIsFormValid(isNombreValid && isDiaValid && isMesValid);
   };
 
@@ -40,21 +41,19 @@ const FormularioInputs = ({ imagen }) => {
           className="input-field"
           maxLength={80}
         />
-        <InputNumber
+        <Input
           placeholder="Día"
           value={dia}
-          onChange={(value) => setDia(value)}
+          onChange={(e) => setDia(Number(e.target.value))}
           className="input-number-field"
-          min={1}
-          max={31}
+          maxLength={2}
         />
-        <InputNumber
+        <Input
           placeholder="Mes"
           value={mes}
-          onChange={(value) => setMes(value)}
-          className="input-number-field"
-          min={1}
-          max={12}
+          onChange={(e) => setMes(e.target.value)}
+          className="input-field month-field"
+          maxLength={15}
         />
       </div>
 
@@ -70,7 +69,6 @@ const FormularioInputs = ({ imagen }) => {
       <ModalPrevisualizar
         open={isModalOpen}
         onClose={handleCerrarModal}
-        imagen={imagen}
         nombre={nombre}
         dia={dia}
         mes={mes}
