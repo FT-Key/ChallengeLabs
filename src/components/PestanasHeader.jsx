@@ -27,11 +27,8 @@ const PestanasHeader = () => {
       key: 'cumple',
       children: (
         <div className="pestana-contenido">
-          
           <SubirImagen />
-          
           {imagen && <FormularioInputs />}
-
         </div>
       ),
     },
@@ -39,9 +36,7 @@ const PestanasHeader = () => {
       label: (
         <span>
           <GiftFilled
-            className={`icono-giftfilled 
-              ${activeKey === 'bienvenida' ? 'icono-active' : 'icono-inactive'} 
-              ${activeKey !== 'bienvenida' && 'icono-disabled'}`}
+            className={`icono-giftfilled ${activeKey === 'bienvenida' ? 'icono-active' : 'icono-inactive'} ${activeKey !== 'bienvenida' && 'icono-disabled'}`}
           />
           Placa de Bienvenida
         </span>
@@ -53,12 +48,7 @@ const PestanasHeader = () => {
 
   return (
     <div className="tabs-container">
-      <Tabs
-        activeKey={activeKey}
-        onChange={handleTabChange}
-        items={items}
-        tabPosition="top"
-      />
+      <Tabs activeKey={activeKey} onChange={handleTabChange} items={items} tabPosition="top" />
     </div>
   );
 };

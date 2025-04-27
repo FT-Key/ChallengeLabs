@@ -6,18 +6,18 @@ import { useImagen } from '../context/ImagenContext.jsx';
 
 const SubirImagen = () => {
   const [fileList, setFileList] = useState([]);
-  const { handleImageUpload } = useImagen();
+  const { handleImageUpload, handleImageRemove } = useImagen();
 
   const handleChange = ({ fileList }) => {
     const newFile = fileList[0];
 
     if (!newFile) {
       setFileList([]);
+      handleImageRemove();
       return;
     }
 
     setFileList(fileList);
-
     handleImageUpload(newFile.originFileObj);
   };
 
@@ -60,17 +60,13 @@ const SubirImagen = () => {
           showPreviewIcon: false,
         }}
       >
-        <div
-          className="upload-drop-zone"
-        >
-          <InboxOutlined className='icono-inboxoutlined' />
+        <div className="upload-drop-zone">
+          <InboxOutlined className="icono-inboxoutlined" />
           <h3>Arrastra la Foto de la persona aquí</h3>
-          <p>
-            Se utilizará una única imagen al a vez
-          </p>
+          <p>Se utilizará una única imagen al a vez</p>
         </div>
       </Upload>
-    </div >
+    </div>
   );
 };
 
