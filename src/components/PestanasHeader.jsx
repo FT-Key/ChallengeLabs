@@ -3,7 +3,7 @@ import { Tabs } from 'antd';
 import { StarFilled, GiftFilled } from '@ant-design/icons';
 import SubirImagen from './SubirImagen.jsx';
 import FormularioInputs from './FormularioInputs.jsx';
-import '../styles/pestanasHeader.css';
+import '../styles/PestanasHeader.css';
 
 const PestanasHeader = () => {
   const [activeKey, setActiveKey] = useState('cumple');
