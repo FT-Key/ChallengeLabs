@@ -1,10 +1,31 @@
-import React from 'react'
+import React from 'react';
+import { Modal } from 'antd';
+import CanvasImage from './CanvasImagen';
 import '../styles/ModalPrevisualizar.css';
 
-const ModalPrevisualizar = () => {
+const ModalPrevisualizar = ({ open, onClose, imagen, nombre, dia, mes }) => {
   return (
-    <div>ModalPrevisualizar</div>
-  )
-}
+    <Modal
+      open={open}
+      onCancel={onClose}
+      footer={null}
+      centered
+      width={800}
+      className="modal-previsualizar"
+      title={"Preview"}
+    >
 
-export default ModalPrevisualizar
+      {/* Contenido del modal con el componente CanvasImage */}
+      <div className="preview-container">
+        <CanvasImage
+          imagen={imagen}
+          nombre={nombre}
+          dia={dia}
+          mes={mes}
+        />
+      </div>
+    </Modal>
+  );
+};
+
+export default ModalPrevisualizar;

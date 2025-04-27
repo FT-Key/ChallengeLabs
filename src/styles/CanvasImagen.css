@@ -1,0 +1,10 @@
+.download-button-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 20px;
+}
+
+.imagen-container {
+  width: 100%;
+}

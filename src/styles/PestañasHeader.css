@@ -1,14 +1,12 @@
 .tabs-container {
   display: flex;
   justify-content: flex-start;
-  padding: 20px;
   width: 100%;
 }
 
 .ant-tabs {
   flex-shrink: 0;
   display: inline-block;
-  margin-right: 30px;
   width: 100%;
 }
 
@@ -23,12 +21,12 @@
 
 .icono-giftfilled {
   margin-right: 8px;
-  font-size: 20px;
+  font-size: 1.25rem;
 }
 
 .icon-starfilled {
   margin-right: 8px;
-  font-size: 20px;
+  font-size: 1.25rem;
 }
 
 .icon-active {
