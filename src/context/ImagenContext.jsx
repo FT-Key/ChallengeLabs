@@ -1,19 +1,23 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 const ImagenContext = createContext();
+
+export const useImagen = () => useContext(ImagenContext);
 
 export const ImagenProvider = ({ children }) => {
   const [imagen, setImagen] = useState(null);
 
-  const handleImageUpload = (file) => {
-    setImagen(file);
+  const handleImageUpload = (image) => {
+    setImagen(image);
+  };
+
+  const handleImageRemove = () => {
+    setImagen(null);
   };
 
   return (
-    <ImagenContext.Provider value={{ imagen, handleImageUpload }}>
+    <ImagenContext.Provider value={{ imagen, handleImageUpload, handleImageRemove }}>
       {children}
     </ImagenContext.Provider>
   );
 };
-
-export const useImagen = () => useContext(ImagenContext);
