@@ -1,10 +1,10 @@
 import './App.css'
-import PestañasHeader from './components/pestañasHeader.jsx'
+import PestanasHeader from './components/PestanasHeader.jsx'
 
 function App() {
   return (
     <>
-      <PestañasHeader />
+      <PestanasHeader />
     </>
   )
 }

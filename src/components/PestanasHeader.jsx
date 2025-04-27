@@ -3,9 +3,9 @@ import { Tabs } from 'antd';
 import { StarFilled, GiftFilled } from '@ant-design/icons';
 import SubirImagen from './SubirImagen.jsx';
 import FormularioInputs from './FormularioInputs.jsx';
-import '../styles/pestañasHeader.css';
+import '../styles/pestanasHeader.css';
 
-const PestañasHeader = () => {
+const PestanasHeader = () => {
   const [activeKey, setActiveKey] = useState('cumple');
   const [file, setFile] = useState(null);
 
@@ -29,7 +29,7 @@ const PestañasHeader = () => {
       ),
       key: 'cumple',
       children: (
-        <div className="pestaña-contenido">
+        <div className="pestana-contenido">
           <SubirImagen onImageUpload={handleImageUpload} />
           {/* ✅ Ahora le pasamos el file como prop */}
           {file && <FormularioInputs imagen={file} />}
@@ -64,4 +64,4 @@ const PestañasHeader = () => {
   );
 };
 
-export default PestañasHeader;
+export default PestanasHeader;
