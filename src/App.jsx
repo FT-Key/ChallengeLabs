@@ -5,7 +5,6 @@ import PestañasHeader from './components/pestañasHeader'
 function App() {
   return (
     <>
-      <h1>Proyecto ChallengeLabs</h1>
       <PestañasHeader />
     </>
   )

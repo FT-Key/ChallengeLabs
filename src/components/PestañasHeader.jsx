@@ -31,8 +31,8 @@ const PestañasHeader = () => {
       children: (
         <div className="pestaña-contenido">
           <SubirImagen onImageUpload={handleImageUpload} />
-          {/* Mostrar FormularioInputs solo si hay una imagen cargada */}
-          {file && <FormularioInputs />}
+          {/* ✅ Ahora le pasamos el file como prop */}
+          {file && <FormularioInputs imagen={file} />}
         </div>
       ),
     },

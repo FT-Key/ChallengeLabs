@@ -27,12 +27,30 @@ const SubirImagen = ({ onImageUpload }) => {
     return isJPGorPNG;
   };
 
+  const handlePreview = async (file) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
+    }
+    setPreviewImage(file.url || file.preview);
+    setPreviewOpen(true);
+  };
+
+  const getBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+  };
+
   return (
     <div className="subir-imagen">
       <Upload
         fileList={fileList}
         onChange={handleChange}
-        beforeUpload={beforeUpload}
+        beforeUpload={/* beforeUpload */ () => false}
+        onPreview={handlePreview}
         accept=".jpg,.png"
         maxCount={1}
         showUploadList={{

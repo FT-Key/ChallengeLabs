@@ -1,28 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Input } from 'antd';
+import { Input, InputNumber, Button } from 'antd';
 import { EyeFilled } from '@ant-design/icons';
+import ModalPrevisualizar from './ModalPrevisualizar';
 import '../styles/FormularioInputs.css';
 
-const FormularioInputs = () => {
+const FormularioInputs = ({ imagen }) => {
   const [nombre, setNombre] = useState('');
-  const [dia, setDia] = useState('');
-  const [mes, setMes] = useState('');
+  const [dia, setDia] = useState(null);
+  const [mes, setMes] = useState(null);
   const [isFormValid, setIsFormValid] = useState(false);
-
-  const handleNombreChange = (e) => setNombre(e.target.value);
-  const handleDiaChange = (e) => setDia(e.target.value);
-  const handleMesChange = (e) => setMes(e.target.value);
-
-  const validateForm = () => {
-    const isNombreValid = nombre.length <= 80 && nombre.trim() !== '';
-    const isDiaValid = !isNaN(dia) && dia > 0 && dia <= 31;
-    const isMesValid = !isNaN(mes) && mes > 0 && mes <= 12;
-    setIsFormValid(isNombreValid && isDiaValid && isMesValid);
-  };
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     validateForm();
   }, [nombre, dia, mes]);
+
+  const validateForm = () => {
+    const isNombreValid = nombre.length <= 80 && nombre.trim() !== '';
+    const isDiaValid = dia !== null && dia > 0 && dia <= 31;
+    const isMesValid = mes !== null && mes > 0 && mes <= 12;
+    setIsFormValid(isNombreValid && isDiaValid && isMesValid);
+  };
+
+  const handlePrevisualizar = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCerrarModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <div className="formulario-inputs">
@@ -30,39 +36,45 @@ const FormularioInputs = () => {
         <Input
           placeholder="Nombre"
           value={nombre}
-          onChange={handleNombreChange}
-          maxLength={80}
+          onChange={(e) => setNombre(e.target.value)}
           className="input-field"
+          maxLength={80}
         />
-        <input
-          type="number"
-          name="dia"
-          value={dia}
-          onChange={handleDiaChange}
-          min="1"
-          max="31"
+        <InputNumber
           placeholder="Día"
+          value={dia}
+          onChange={(value) => setDia(value)}
+          className="input-number-field"
+          min={1}
+          max={31}
         />
-
-        <input
-          type="number"
-          name="mes"
-          value={mes}
-          onChange={handleMesChange}
-          min="1"
-          max="12"
+        <InputNumber
           placeholder="Mes"
+          value={mes}
+          onChange={(value) => setMes(value)}
+          className="input-number-field"
+          min={1}
+          max={12}
         />
       </div>
 
-      {/* Botón de previsualización */}
       <Button
         type="primary"
         disabled={!isFormValid}
-        className={`preview-button ${!isFormValid ? 'disabled' : ''}`}
+        onClick={handlePrevisualizar}
+        className="boton-previsualizar"
       >
         <EyeFilled /> Previsualizar
       </Button>
+
+      <ModalPrevisualizar
+        open={isModalOpen}
+        onClose={handleCerrarModal}
+        imagen={imagen}
+        nombre={nombre}
+        dia={dia}
+        mes={mes}
+      />
     </div>
   );
 };
