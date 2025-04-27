@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import './App.css'
+import PestañasHeader from './components/pestañasHeader'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
       <h1>Proyecto ChallengeLabs</h1>
+      <PestañasHeader />
     </>
   )
 }
