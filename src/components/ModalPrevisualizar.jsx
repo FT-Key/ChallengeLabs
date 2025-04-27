@@ -3,7 +3,8 @@ import { Modal } from 'antd';
 import CanvasImage from './CanvasImagen.jsx';
 import '../styles/ModalPrevisualizar.css';
 
-const ModalPrevisualizar = ({ open, onClose, imagen, nombre, dia, mes }) => {
+const ModalPrevisualizar = ({ open, onClose, nombre, dia, mes }) => {
+
   return (
     <Modal
       open={open}
@@ -17,7 +18,6 @@ const ModalPrevisualizar = ({ open, onClose, imagen, nombre, dia, mes }) => {
 
       <div className="preview-container">
         <CanvasImage
-          imagen={imagen}
           nombre={nombre}
           dia={dia}
           mes={mes}

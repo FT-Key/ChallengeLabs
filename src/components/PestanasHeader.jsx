@@ -4,17 +4,14 @@ import { StarFilled, GiftFilled } from '@ant-design/icons';
 import SubirImagen from './SubirImagen.jsx';
 import FormularioInputs from './FormularioInputs.jsx';
 import '../styles/PestanasHeader.css';
+import { useImagen } from '../context/ImagenContext.jsx';
 
 const PestanasHeader = () => {
   const [activeKey, setActiveKey] = useState('cumple');
-  const [file, setFile] = useState(null);
+  const { imagen } = useImagen();
 
   const handleTabChange = (key) => {
     setActiveKey(key);
-  };
-
-  const handleImageUpload = (file) => {
-    setFile(file);
   };
 
   const items = [
@@ -31,9 +28,9 @@ const PestanasHeader = () => {
       children: (
         <div className="pestana-contenido">
           
-          <SubirImagen onImageUpload={handleImageUpload} />
+          <SubirImagen />
           
-          {file && <FormularioInputs imagen={file} />}
+          {imagen && <FormularioInputs />}
 
         </div>
       ),
