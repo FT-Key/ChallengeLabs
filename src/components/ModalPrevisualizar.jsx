@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal } from 'antd';
-import CanvasImage from './CanvasImagen';
+import CanvasImage from './CanvasImagen.jsx';
 import '../styles/ModalPrevisualizar.css';
 
 const ModalPrevisualizar = ({ open, onClose, imagen, nombre, dia, mes }) => {

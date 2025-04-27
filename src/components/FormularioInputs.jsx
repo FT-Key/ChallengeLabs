@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Input, InputNumber, Button } from 'antd';
 import { EyeFilled } from '@ant-design/icons';
-import ModalPrevisualizar from './ModalPrevisualizar';
+import ModalPrevisualizar from './ModalPrevisualizar.jsx';
 import '../styles/FormularioInputs.css';
 
 const FormularioInputs = ({ imagen }) => {

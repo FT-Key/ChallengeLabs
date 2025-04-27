@@ -1,6 +1,5 @@
-import { useState } from 'react'
 import './App.css'
-import PestañasHeader from './components/pestañasHeader'
+import PestañasHeader from './components/pestañasHeader.jsx'
 
 function App() {
   return (

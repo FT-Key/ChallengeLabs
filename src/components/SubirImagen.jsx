@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Upload, message } from 'antd';
-import { InboxOutlined, DeleteOutlined } from '@ant-design/icons';
+import { InboxOutlined } from '@ant-design/icons';
 import '../styles/SubirImagen.css';
 
 const SubirImagen = ({ onImageUpload }) => {

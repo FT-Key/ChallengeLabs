@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Tabs } from 'antd';
 import { StarFilled, GiftFilled } from '@ant-design/icons';
-import SubirImagen from './SubirImagen';
-import FormularioInputs from './FormularioInputs';
+import SubirImagen from './SubirImagen.jsx';
+import FormularioInputs from './FormularioInputs.jsx';
 import '../styles/pestañasHeader.css';
 
 const PestañasHeader = () => {
