@@ -15,7 +15,6 @@ const ModalPrevisualizar = ({ open, onClose, imagen, nombre, dia, mes }) => {
       title={"Preview"}
     >
 
-      {/* Contenido del modal con el componente CanvasImage */}
       <div className="preview-container">
         <CanvasImage
           imagen={imagen}

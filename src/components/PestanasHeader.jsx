@@ -30,9 +30,11 @@ const PestanasHeader = () => {
       key: 'cumple',
       children: (
         <div className="pestana-contenido">
+          
           <SubirImagen onImageUpload={handleImageUpload} />
-          {/* ✅ Ahora le pasamos el file como prop */}
+          
           {file && <FormularioInputs imagen={file} />}
+
         </div>
       ),
     },

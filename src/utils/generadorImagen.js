@@ -1,1 +1,0 @@
-/* Zona de helpers y funciones varias */

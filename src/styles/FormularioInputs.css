@@ -37,7 +37,7 @@
   border-color: #1473FF;
 }
 
-.boton-previsualizar .anticon-eye-filled {
+.boton-previsualizar .anticon-eye {
   color: white;
-  margin-right: 8px;
+  margin-right: .25rem;
 }
