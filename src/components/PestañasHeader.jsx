@@ -2,13 +2,19 @@ import React, { useState } from 'react';
 import { Tabs } from 'antd';
 import { StarFilled, GiftFilled } from '@ant-design/icons';
 import SubirImagen from './SubirImagen';
+import FormularioInputs from './FormularioInputs';
 import '../styles/pestañasHeader.css';
 
 const PestañasHeader = () => {
   const [activeKey, setActiveKey] = useState('cumple');
+  const [file, setFile] = useState(null);
 
   const handleTabChange = (key) => {
     setActiveKey(key);
+  };
+
+  const handleImageUpload = (file) => {
+    setFile(file);
   };
 
   const items = [
@@ -24,7 +30,9 @@ const PestañasHeader = () => {
       key: 'cumple',
       children: (
         <div className="pestaña-contenido">
-          <SubirImagen onImageUpload={(file) => console.log(file)} />
+          <SubirImagen onImageUpload={handleImageUpload} />
+          {/* Mostrar FormularioInputs solo si hay una imagen cargada */}
+          {file && <FormularioInputs />}
         </div>
       ),
     },
