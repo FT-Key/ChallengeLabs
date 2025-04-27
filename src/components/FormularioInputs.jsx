@@ -35,6 +35,8 @@ const FormularioInputs = () => {
     <div className="formulario-inputs">
       <div className="inputs-container">
         <Input
+          id="nombre"
+          name="nombre"
           placeholder="Nombre"
           value={nombre}
           onChange={(e) => setNombre(e.target.value)}
@@ -42,6 +44,8 @@ const FormularioInputs = () => {
           maxLength={80}
         />
         <Input
+          id="dia"
+          name="dia"
           placeholder="Día"
           value={dia}
           onChange={(e) => setDia(Number(e.target.value))}
@@ -49,6 +53,8 @@ const FormularioInputs = () => {
           maxLength={2}
         />
         <Input
+          id="mes"
+          name="mes"
           placeholder="Mes"
           value={mes}
           onChange={(e) => setMes(e.target.value)}
