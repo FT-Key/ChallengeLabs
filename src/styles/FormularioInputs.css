@@ -1,0 +1,43 @@
+.formulario-inputs {
+  width: 100%;
+}
+
+.inputs-container {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+}
+
+.input-field {
+  width: clamp(120px, 30%, 200px);
+}
+
+.input-number-field {
+  width: clamp(80px, 10%, 120px);
+}
+
+.boton-previsualizar {
+  border-radius: 5rem;
+  margin-top: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 2.25rem;
+  line-height: 2rem;
+}
+
+
+.boton-previsualizar:disabled {
+  background-color: #b0b0b0;
+  border-color: #b0b0b0;
+}
+
+.boton-previsualizar:not(:disabled) {
+  background-color: #1473FF;
+  border-color: #1473FF;
+}
+
+.boton-previsualizar .anticon-eye-filled {
+  color: white;
+  margin-right: 8px;
+}
