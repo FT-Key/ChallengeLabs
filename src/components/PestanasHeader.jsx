@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Tabs } from 'antd';
 import { StarFilled, GiftFilled } from '@ant-design/icons';
-import SubirImagen from './SubirImagen';
-import FormularioInputs from './FormularioInputs';
-import '../styles/pestañasHeader.css';
+import SubirImagen from './SubirImagen.jsx';
+import FormularioInputs from './FormularioInputs.jsx';
+import '../styles/PestanasHeader.css';
 
-const PestañasHeader = () => {
+const PestanasHeader = () => {
   const [activeKey, setActiveKey] = useState('cumple');
   const [file, setFile] = useState(null);
 
@@ -29,10 +29,12 @@ const PestañasHeader = () => {
       ),
       key: 'cumple',
       children: (
-        <div className="pestaña-contenido">
+        <div className="pestana-contenido">
+          
           <SubirImagen onImageUpload={handleImageUpload} />
-          {/* ✅ Ahora le pasamos el file como prop */}
+          
           {file && <FormularioInputs imagen={file} />}
+
         </div>
       ),
     },
@@ -64,4 +66,4 @@ const PestañasHeader = () => {
   );
 };
 
-export default PestañasHeader;
+export default PestanasHeader;

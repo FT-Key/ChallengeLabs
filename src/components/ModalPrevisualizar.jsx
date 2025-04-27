@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal } from 'antd';
-import CanvasImage from './CanvasImagen';
+import CanvasImage from './CanvasImagen.jsx';
 import '../styles/ModalPrevisualizar.css';
 
 const ModalPrevisualizar = ({ open, onClose, imagen, nombre, dia, mes }) => {
@@ -15,7 +15,6 @@ const ModalPrevisualizar = ({ open, onClose, imagen, nombre, dia, mes }) => {
       title={"Preview"}
     >
 
-      {/* Contenido del modal con el componente CanvasImage */}
       <div className="preview-container">
         <CanvasImage
           imagen={imagen}

@@ -1,11 +1,10 @@
-import { useState } from 'react'
 import './App.css'
-import PestañasHeader from './components/pestañasHeader'
+import PestanasHeader from './components/PestanasHeader.jsx'
 
 function App() {
   return (
     <>
-      <PestañasHeader />
+      <PestanasHeader />
     </>
   )
 }
