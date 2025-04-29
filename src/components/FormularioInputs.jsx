@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Input, Button } from 'antd';
+import { Input, Button, message } from 'antd';
 import { EyeFilled } from '@ant-design/icons';
 import ModalPrevisualizar from './ModalPrevisualizar.jsx';
 import '../styles/FormularioInputs.css';
-import { mesesValidos } from '../constants/constantes.js';
+import { getMesIndex } from '../utils/manejadorFechas.js';
 
 const FormularioInputs = () => {
   const [nombre, setNombre] = useState('');
-  const [dia, setDia] = useState(null);
+  const [dia, setDia] = useState('');
   const [mes, setMes] = useState('');
   const [isFormValid, setIsFormValid] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,10 +17,45 @@ const FormularioInputs = () => {
   }, [nombre, dia, mes]);
 
   const validateForm = () => {
-    const isNombreValid = nombre.length <= 80 && nombre.trim() !== '';
-    const isDiaValid = dia !== null && dia > 0 && dia <= 31;
-    const isMesValid = mesesValidos.some((m) => m.toLowerCase() === mes.trim().toLowerCase());
-    setIsFormValid(isNombreValid && isDiaValid && isMesValid);
+    const diaNumero = Number(dia);
+
+    const isNombreValid =
+      nombre.length >= 2 &&
+      nombre.length <= 80 &&
+      /^[A-Za-zÁÉÍÓÚáéíóúÑñ'’\- ]+$/.test(nombre.trim()) &&
+      nombre.trim() !== '';
+
+    const mesIndex = getMesIndex(mes);
+    const isMesValid = mesIndex !== null;
+
+    const isDiaValid = !isNaN(diaNumero) && diaNumero >= 1 && diaNumero <= 31;
+    const isDiaValidoParaElMes = mesIndex !== null &&
+      diaNumero >= 1 &&
+      diaNumero <= new Date(2024, mesIndex + 1, 0).getDate();
+
+    setIsFormValid(isNombreValid && isDiaValid && isMesValid && isDiaValidoParaElMes);
+  };
+
+  const handleDiaChange = (e) => {
+    const value = e.target.value;
+
+    if (!/^\d*$/.test(value)) {
+      message.error('El día debe ser un número del 1 al 31');
+      setDia('1');
+      return;
+    }
+
+    const numero = Number(value);
+
+    if (numero > 31) {
+      message.error('El día no puede ser mayor que 31');
+      setDia('31');
+    } else if (numero < 1 && value !== '') {
+      message.error('El día debe ser un número mayor o igual a 1');
+      setDia('1');
+    } else {
+      setDia(value);
+    }
   };
 
   const handlePrevisualizar = () => {
@@ -39,7 +74,12 @@ const FormularioInputs = () => {
           name="nombre"
           placeholder="Nombre"
           value={nombre}
-          onChange={(e) => setNombre(e.target.value)}
+          onChange={(e) => {
+            const valor = e.target.value;
+            if (/^[A-Za-zÁÉÍÓÚáéíóúÑñ'’\- ]*$/.test(valor)) {
+              setNombre(valor);
+            }
+          }}
           className="input-field"
           maxLength={80}
         />
@@ -48,7 +88,7 @@ const FormularioInputs = () => {
           name="dia"
           placeholder="Día"
           value={dia}
-          onChange={(e) => setDia(Number(e.target.value))}
+          onChange={handleDiaChange}
           className="input-number-field"
           maxLength={2}
         />
@@ -57,7 +97,12 @@ const FormularioInputs = () => {
           name="mes"
           placeholder="Mes"
           value={mes}
-          onChange={(e) => setMes(e.target.value)}
+          onChange={(e) => {
+            const valor = e.target.value;
+            if (valor === '' || /^[\p{L}\s]+$/u.test(valor)) {
+              setMes(valor);
+            }
+          }}
           className="input-field month-field"
           maxLength={15}
         />
@@ -76,7 +121,7 @@ const FormularioInputs = () => {
         open={isModalOpen}
         onClose={handleCerrarModal}
         nombre={nombre}
-        dia={dia}
+        dia={Number(dia)}
         mes={mes}
       />
     </div>
