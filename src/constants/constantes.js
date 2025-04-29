@@ -25,8 +25,3 @@ export const estilosTexto = {
     textAlign: 'left',
   },
 };
-
-export const mesesValidos = [
-  'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre',
-  'octubre', 'noviembre', 'diciembre'
-];
