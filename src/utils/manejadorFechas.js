@@ -1,4 +1,4 @@
-const locales = ['es', 'en', 'fr', 'de', 'it'];
+import { locales } from '../constants/constantes.js';
 
 export const getMesNombre = (mes) => {
   if (!mes) return null;
@@ -20,3 +20,21 @@ export const getMesNombre = (mes) => {
   return null;
 };
 
+export const getMesIndex = (mes) => {
+  if (!mes) return null;
+
+  const mesInput = mes.trim().toLowerCase();  
+
+  for (let locale of locales) {
+    for (let i = 0; i < 12; i++) {
+      const fecha = new Date(2020, i, 1);
+      const mesNombre = new Intl.DateTimeFormat(locale, { month: 'long' }).format(fecha);
+
+      if (mesNombre.toLowerCase() === mesInput) {
+        return i;
+      }
+    }
+  }
+
+  return null;
+};

@@ -25,3 +25,5 @@ export const estilosTexto = {
     textAlign: 'left',
   },
 };
+
+export const locales = ['es', 'en', 'fr', 'de', 'it', 'pt'];

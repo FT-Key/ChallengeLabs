@@ -3,7 +3,7 @@ import { Input, Button, message } from 'antd';
 import { EyeFilled } from '@ant-design/icons';
 import ModalPrevisualizar from './ModalPrevisualizar.jsx';
 import '../styles/FormularioInputs.css';
-import { getMesNombre } from '../utils/manejadorFechas.js';
+import { getMesIndex } from '../utils/manejadorFechas.js';
 
 const FormularioInputs = () => {
   const [nombre, setNombre] = useState('');
@@ -18,19 +18,30 @@ const FormularioInputs = () => {
 
   const validateForm = () => {
     const diaNumero = Number(dia);
-    const isNombreValid = nombre.length >= 2 && nombre.length <= 80 && nombre.trim() !== '';
+
+    const isNombreValid =
+      nombre.length >= 2 &&
+      nombre.length <= 80 &&
+      /^[A-Za-zÁÉÍÓÚáéíóúÑñ'’\- ]+$/.test(nombre.trim()) &&
+      nombre.trim() !== '';
+
+    const mesIndex = getMesIndex(mes);
+    const isMesValid = mesIndex !== null;
+
     const isDiaValid = !isNaN(diaNumero) && diaNumero >= 1 && diaNumero <= 31;
-    const isMesValid = getMesNombre(mes) !== null;
-    setIsFormValid(isNombreValid && isDiaValid && isMesValid);
+    const isDiaValidoParaElMes = mesIndex !== null &&
+      diaNumero >= 1 &&
+      diaNumero <= new Date(2024, mesIndex + 1, 0).getDate();
+
+    setIsFormValid(isNombreValid && isDiaValid && isMesValid && isDiaValidoParaElMes);
   };
 
   const handleDiaChange = (e) => {
     const value = e.target.value;
 
-    // Solo permitir números
     if (!/^\d*$/.test(value)) {
       message.error('El día debe ser un número del 1 al 31');
-      setDia('1'); // Poner en 1 si escribe letra u otro caracter
+      setDia('1');
       return;
     }
 
@@ -63,7 +74,12 @@ const FormularioInputs = () => {
           name="nombre"
           placeholder="Nombre"
           value={nombre}
-          onChange={(e) => setNombre(e.target.value)}
+          onChange={(e) => {
+            const valor = e.target.value;
+            if (/^[A-Za-zÁÉÍÓÚáéíóúÑñ'’\- ]*$/.test(valor)) {
+              setNombre(valor);
+            }
+          }}
           className="input-field"
           maxLength={80}
         />
@@ -81,7 +97,12 @@ const FormularioInputs = () => {
           name="mes"
           placeholder="Mes"
           value={mes}
-          onChange={(e) => setMes(e.target.value)}
+          onChange={(e) => {
+            const valor = e.target.value;
+            if (valor === '' || /^[\p{L}\s]+$/u.test(valor)) {
+              setMes(valor);
+            }
+          }}
           className="input-field month-field"
           maxLength={15}
         />

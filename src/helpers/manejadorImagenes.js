@@ -1,5 +1,5 @@
 export const renderizarPseudoCodigo = (ctx, lines, colorMap) => {
-  let isInQuote = false; // Ahora lo declaramos FUERA para que dure entre líneas
+  let isInQuote = false;
 
   const drawLineWithColor = (line, yPosition) => {
     let xPosition = 285;
@@ -11,16 +11,18 @@ export const renderizarPseudoCodigo = (ctx, lines, colorMap) => {
 
       if (char === "'") {
         if (isInQuote) {
-          // Cerrar la comilla
-          ctx.fillStyle = '#D4CA6C'; // Color de comillas (amarillo)
+          ctx.fillStyle = '#D4CA6C';
+          currentWord += char;
           ctx.fillText(currentWord, xPosition, yPosition);
           xPosition += ctx.measureText(currentWord).width + 5;
           currentWord = '';
         }
-        isInQuote = !isInQuote; // Alternar estado
+        if (!isInQuote) {
+          currentWord += char;
+        }
+        isInQuote = !isInQuote;
       } else {
         if (isInQuote) {
-          // Todo el contenido entre comillas
           currentWord += char;
         } else {
           if (/[a-zA-Z0-9_]/.test(char)) {
@@ -43,7 +45,6 @@ export const renderizarPseudoCodigo = (ctx, lines, colorMap) => {
       }
     }
 
-    // Si queda algo pendiente al final
     if (currentWord) {
       ctx.fillStyle = isInQuote ? '#D4CA6C' : (colorMap[currentWord] || 'white');
       ctx.fillText(currentWord, xPosition, yPosition);
@@ -51,7 +52,7 @@ export const renderizarPseudoCodigo = (ctx, lines, colorMap) => {
   };
 
   const lineHeight = 50;
-  let yPosition = 455;
+  let yPosition = 430;
   lines.forEach((line) => {
     drawLineWithColor(line, yPosition);
     yPosition += lineHeight;
@@ -59,39 +60,63 @@ export const renderizarPseudoCodigo = (ctx, lines, colorMap) => {
 };
 
 export const generarLines = (nombre) => {
-  const maxFirstLine = 18;
-  const maxOtherLines = 36;
-  const nombreCompleto = `¡Feliz Cumple ${nombre}!`;
+  const maxCharInLines = 36;
+  const textoFijo = " alert('";
+  const textoFinal = "');";
+  const textoExtra = "¡Feliz Cumple ";
+
+  const contenido = textoExtra + nombre;
   let nombrePartes = [];
+  let palabras = contenido.split(' ');
 
-  if (nombreCompleto.length <= maxFirstLine + 14) { 
-    nombrePartes.push(nombreCompleto);
+  let lineaActual = textoFijo;
+  let espacioDisponible = maxCharInLines - textoFijo.length - textoFinal.length;
+
+  for (let palabra of palabras) {
+    if ((lineaActual.length - textoFijo.length) + palabra.length + 1 <= espacioDisponible) {
+      if (lineaActual !== textoFijo) {
+        lineaActual += ' ';
+      }
+      lineaActual += palabra;
+    } else {
+      if (palabra.length > espacioDisponible) {
+        let partePalabra = palabra;
+        if (lineaActual !== textoFijo) {
+          nombrePartes.push(lineaActual);
+          lineaActual = '    ';
+          espacioDisponible = maxCharInLines - 4;
+        }
+        while (partePalabra.length > 0) {
+          const fragmento = partePalabra.slice(0, espacioDisponible);
+          nombrePartes.push(lineaActual + fragmento);
+          partePalabra = partePalabra.slice(espacioDisponible);
+          lineaActual = '    ';
+          espacioDisponible = maxCharInLines - 4;
+        }
+        console.log("nombrePartes", nombrePartes);
+      } else {
+        nombrePartes.push(lineaActual);
+        lineaActual = '    ' + palabra;
+        espacioDisponible = maxCharInLines - 4;
+      }
+    }
+  }
+
+  if (nombrePartes.length === 0) {
+    nombrePartes.push(lineaActual + textoFinal);
   } else {
-    let restante = nombreCompleto.slice(0);
-    let primeraParte = restante.slice(0, maxFirstLine);
-    nombrePartes.push(primeraParte);
-    restante = restante.slice(maxFirstLine);
-
-    while (restante.length > 0) {
-      nombrePartes.push(restante.slice(0, maxOtherLines));
-      restante = restante.slice(maxOtherLines);
-    }
-
-    let ultimaParte = nombrePartes.pop();
-    if (!ultimaParte.endsWith('!')) {
-      ultimaParte += '!'; 
-    }
-    nombrePartes.push(ultimaParte + "');");
+    nombrePartes.push(lineaActual + textoFinal);
   }
 
   return [
     'var i = 0, age = getAge();',
     'while(true) {',
-    '  if (i === age) {',
-    `    alert('${nombrePartes[0]}`,
-    ...nombrePartes.slice(1).map(linea => `    ${linea}`),
-    '  else {',
-    '    i++;',
+    '    if (i === age) {',
+    ...nombrePartes.map(line => '        ' + line),
+    '    }',
+    '    else {',
+    '        i++;',
+    '    }',
     '}',
   ];
 };

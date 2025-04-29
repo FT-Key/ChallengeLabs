@@ -28,9 +28,9 @@ const CanvasImage = ({ dia, mes, nombre }) => {
           const imgWidth = img.width;
           const imgHeight = img.height;
 
-          const targetWidth = 575;
+          const targetWidth = 573;
           const targetHeight = 415;
-          const targetX = 695;
+          const targetX = 700;
           const targetY = 979;
 
           const imgAspectRatio = imgWidth / imgHeight;
