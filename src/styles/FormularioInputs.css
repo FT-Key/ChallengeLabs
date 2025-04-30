@@ -6,19 +6,44 @@
 .inputs-container {
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
   gap: 0;
 }
 
 .input-field {
-  width: clamp(160px, 30%, 180px);
+  width: 70%;
 }
 
 .input-field.month-field {
-  width: clamp(120px, 30%, 110px);
+  width: clamp(70%, 70%, 110px);
 }
 
 .input-number-field {
-  width: clamp(50px, 5%, 60px);
+  width: clamp(70%, 70%, 110px);
+}
+
+@media (min-width: 768px) {
+  .input-field {
+    width: clamp(160px, 30%, 180px);
+  }
+
+  .input-field.month-field {
+    width: clamp(120px, 30%, 110px);
+  }
+
+  .input-number-field {
+    width: clamp(100px, 5%, 90px);
+  }
+
+  .inputs-container {
+    flex-direction: row;
+    align-items: start;
+  }
+
+  .ant-form-item-explain {
+    min-height: 4.5rem;
+  }
 }
 
 .boton-previsualizar {
@@ -45,4 +70,11 @@
 .boton-previsualizar .anticon-eye {
   color: white;
   margin-right: .25rem;
+}
+
+.ant-form-item-explain {
+  min-height: 3rem;
+  display: flex;
+  align-items: start;
+  transition: opacity 0.3s ease;
 }
