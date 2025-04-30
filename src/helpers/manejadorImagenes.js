@@ -93,7 +93,6 @@ export const generarLines = (nombre) => {
           lineaActual = '    ';
           espacioDisponible = maxCharInLines - 4;
         }
-        console.log("nombrePartes", nombrePartes);
       } else {
         nombrePartes.push(lineaActual);
         lineaActual = '    ' + palabra;
