@@ -11,6 +11,11 @@
   min-height: 100vh;
 }
 
+.ant-tabs-nav-wrap {
+  padding-top: 1rem;
+  padding-left: 2rem;
+}
+
 .ant-tabs-content-holder {
   display: flex;
   flex-wrap: wrap;

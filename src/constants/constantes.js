@@ -26,7 +26,4 @@ export const estilosTexto = {
   },
 };
 
-export const mesesValidos = [
-  'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre',
-  'octubre', 'noviembre', 'diciembre'
-];
+export const locales = ['es', 'en', 'fr', 'de', 'it', 'pt'];

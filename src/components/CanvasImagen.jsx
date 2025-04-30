@@ -25,11 +25,32 @@ const CanvasImage = ({ dia, mes, nombre }) => {
         ctx.drawImage(fondo, 0, 0, canvas.width, canvas.height);
 
         if (img) {
-          const imgWidth = 575;
-          const imgHeight = 415;
-          const xPos = 695;
-          const yPos = 979;
-          ctx.drawImage(img, xPos, yPos, imgWidth, imgHeight);
+          const imgWidth = img.width;
+          const imgHeight = img.height;
+
+          const targetWidth = 573;
+          const targetHeight = 415;
+          const targetX = 700;
+          const targetY = 979;
+
+          const imgAspectRatio = imgWidth / imgHeight;
+          const targetAspectRatio = targetWidth / targetHeight;
+
+          let drawWidth, drawHeight, xPos, yPos;
+
+          if (imgAspectRatio > targetAspectRatio) {
+            drawWidth = targetWidth;
+            drawHeight = targetWidth / imgAspectRatio;
+            xPos = targetX;
+            yPos = targetY + (targetHeight - drawHeight) / 2;
+          } else {
+            drawHeight = targetHeight;
+            drawWidth = targetHeight * imgAspectRatio;
+            xPos = targetX + (targetWidth - drawWidth) / 2;
+            yPos = targetY;
+          }
+
+          ctx.drawImage(img, 0, 0, imgWidth, imgHeight, xPos, yPos, drawWidth, drawHeight);
         }
 
         aplicarEstiloTexto(ctx, estilosTexto.pseudoCodigo);
